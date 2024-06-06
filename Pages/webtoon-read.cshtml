@@ -4,158 +4,176 @@
     ViewData["Title"] = "Webtoon Oku";
 }
 
+    <!DOCTYPE html>
+    <html lang="zxx">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Anime Template">
+        <meta name="keywords" content="Anime, unica, creative, html">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
-
-<!DOCTYPE html>
-<html lang="zxx">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Anime Template">
-    <meta name="keywords" content="Anime, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+        <link rel="stylesheet" href="css/plyr.css" type="text/css">
+        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+        <link rel="stylesheet" href="css/style.css" type="text/css">
 
- 
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/plyr.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-</head>
+        <style>
+            .login-reminder {
 
-<body>
-    
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+    border: 1px solid #ced4da; /* Kenarlık */
+    border-radius: 5px; /* Kenar yuvarlama */
+    padding: 20px; /* İç içe boşluk */
+    text-align: center; /* Metni ortala */
+}
+
+.login-reminder h3 {
+    margin-bottom: 10px; /* Başlık ile bağlantı arasındaki boşluk */
+    color: white; /* Başlık rengi */
+    font-size: 1.2em; /* Başlık font boyutu */
+}
+
+.login-button {
+    display: inline-block; /* Bağlantıları yatayda sırala */
+    padding: 10px 20px; /* Bağlantı içeriği ile kenar arasındaki boşluk */
+    background-color: purple; /* Bağlantı arka plan rengi */
+    color: #fff; /* Bağlantı metni rengi */
+    text-decoration: none; /* Bağlantı alt çizgi kaldır */
+    border-radius: 3px; /* Bağlantı kenarlarını yuvarla */
+    transition: background-color 0.3s; /* Arka plan rengi geçiş efekti */
+}
+
+.login-button:hover {
+    background-color: #0056b3; /* Üzerine gelindiğinde arka plan rengi */
+}
+
+        </style>
+    </head>
+
+    <body>
+        
+ @if (HttpContext.Session.GetString("IsLoggedIn") != "true")
+                                {
+   <div class="login-reminder">
+    <h3>Webtoon okuyabilmek için lütfen giriş yapın.</h3>
+    <a href="login" class="login-button">Giriş yapmak için tıklayınız</a>
+</div>
+
+}
+else
+{
+
+        <div id="preloder">
+            <div class="loader"></div>
+        </div>
 
 
-  
-    <div class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__links">
-                        <a href="index"><i class="fa fa-home"></i> AnaSayfa</a>
-                        <a href="categories">Kategoriler</a>
-                        <span>Romantik</span>
+        <section class="webtoon-details spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="webtoon__header" style="color: white;">
+                            <h2 style="color: white;">Webtoon Adı</h2>
+                            <h4 style="color: white;">Bölüm 01</h4>
+                        </div>
+
+                        <div class="webtoon__images">
+                            <img src="images/01.jpg" alt="Webtoon Image 1" />
+                            <img src="images/02.jpg" alt="Webtoon Image 2" />
+                            <img src="images/03.jpg" alt="Webtoon Image 3" />
+                            <img src="images/04.jpg" alt="Webtoon Image 4" />
+                        </div>
+
+                        <div class="webtoon__navigation">
+                            <button class="prev">Önceki</button>
+                            <button class="next">Sonraki</button>
+                        </div>
+
+                        <div class="webtoon__episode__list">
+                            <button class="episode__list__button">Bölüm Seç</button>
+                            <div class="episode__dropdown">
+                                <a href="webtoon-read?episode=1">Ep 01</a>
+                                <a href="webtoon-read?episode=2">Ep 02</a>
+                                <a href="webtoon-read?episode=3">Ep 03</a>
+                                <a href="webtoon-read?episode=4">Ep 04</a>
+                                <a href="webtoon-read?episode=5">Ep 05</a>
+                                <a href="webtoon-read?episode=6">Ep 06</a>
+                                <a href="webtoon-read?episode=7">Ep 07</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-   
+        </section>
 
-   
-<section class="webtoon-details spad">
-    <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-               
-                <div class="webtoon__header" style="color: white;">
-                    <h2 style="color: white;">Webtoon Adı</h2>
-                    <h4 style="color: white;">Bölüm 01</h4>
-                </div>
-                
-                <div class="webtoon__images">
-                    <img src="images/01.jpg" alt="Webtoon Image 1" />
-                    <img src="images/02.jpg" alt="Webtoon Image 2" />
-                    <img src="images/03.jpg" alt="Webtoon Image 3" />
-                    <img src="images/04.jpg" alt="Webtoon Image 4" />
-                </div>
-               
-                <div class="webtoon__navigation">
-                    <button class="prev">Önceki</button>
-                    <button class="next">Sonraki</button>
-                </div>
-                
-                <div class="webtoon__episode__list">
-                    <button class="episode__list__button">Bölüm Seç</button>
-                    <div class="episode__dropdown">
-                        <a href="webtoon-read?episode=1">Ep 01</a>
-                        <a href="webtoon-read?episode=2">Ep 02</a>
-                        <a href="webtoon-read?episode=3">Ep 03</a>
-                        <a href="webtoon-read?episode=4">Ep 04</a>
-                        <a href="webtoon-read?episode=5">Ep 05</a>
-                        <a href="webtoon-read?episode=6">Ep 06</a>
-                        <a href="webtoon-read?episode=7">Ep 07</a>
+            <div class="col-lg-8">
+                <div class="anime__details__review">
+                    <div class="section-title">
+                        <h5>Reviews</h5>
+                    </div>
+                    <div class="anime__review__item">
+                        <div class="anime__review__item__pic">
+                            <img src="img/anime/review-1.jpg" alt="">
+                        </div>
+                        <div class="anime__review__item__text">
+                            <h6>Chris Curry - <span>2024/05/07 18.00</span></h6>
+                            <p>Okuduğum En iyi webtoonlardan.</p>
+                        </div>
+                    </div>
+                    <div class="anime__review__item">
+                        <div class="anime__review__item__pic">
+                            <img src="img/anime/review-2.jpg" alt="">
+                        </div>
+                        <div class="anime__review__item__text">
+                            <h6>Lewis Mann - <span>2024/05/10 20.00</span></h6>
+                            <p>Hemen final yapmaz inşallah</p>
+                        </div>
+                    </div>
+                    <div class="anime__details__form">
+                        <div class="section-title">
+                            <h5>Yorum Ekle</h5>
+                        </div>
+                        <form action="#">
+                            <textarea placeholder="Yorum Yaz"></textarea>
+                            <button type="submit"><i class="fa fa-location-arrow"></i> Gönder</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
-
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="anime__details__review">
-                        <div class="section-title">
-                            <h5>Reviews</h5>
-                        </div>
-                        <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-1.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Chris Curry - <span>2024/05/07 18.00</span></h6>
-                                    <p>Okuduğum En iyi webtoonlardan.</p>
-                                </div>
-                            </div>
-                            <div class="anime__review__item">
-                                <div class="anime__review__item__pic">
-                                    <img src="img/anime/review-2.jpg" alt="">
-                                </div>
-                                <div class="anime__review__item__text">
-                                    <h6>Lewis Mann - <span>2024/05/10 20.00</span></h6>
-                                    <p>Hemen final yapmaz inşallah</p>
-                                </div>
-                            </div>
-                       <div class="anime__details__form">
-                            <div class="section-title">
-                                <h5>Yorum Ekle</h5>
-                            </div>
-                            <form action="#">
-                                <textarea placeholder="Yorum Yaz"></textarea>
-                                <button type="submit"><i class="fa fa-location-arrow"></i> Gönder</button>
-                            </form>
-                        </div>
-                </div>
+        <div class="search-model">
+            <div class="h-100 d-flex align-items-center justify-content-center">
+                <div class="search-close-switch"><i class="icon_close"></i></div>
+                <form class="search-model-form">
+                    <input type="text" id="search-input" placeholder="Search here.....">
+                </form>
             </div>
-        </div>
-    </section>
-  
+        </div>}
 
- 
-      <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch"><i class="icon_close"></i></div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
-        </div>
-    </div>
-    
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/player.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/player.js"></script>
+        <script src="js/jquery.nice-select.min.js"></script>
+       <script src="js/mixitup.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 
 </html>
+
+
