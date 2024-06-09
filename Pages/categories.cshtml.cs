@@ -1,19 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace DarkTon_Web.Pages;
-
-public class Categories : PageModel
+namespace DarkTon_Web.Pages
 {
-    private readonly ILogger<Categories> _logger;
+   public class CategoriesModel : PageModel
+{
+    private readonly ILogger<CategoriesModel> _logger;
+    private readonly WebtoonVeri _webtoonVeri;
 
-    public Categories(ILogger<Categories> logger)
+    public List<Webtoon> Webtoons { get; private set; }
+
+    public CategoriesModel(ILogger<CategoriesModel> logger)
     {
         _logger = logger;
+        _webtoonVeri = new WebtoonVeri(); // WebtoonVeri sınıfını manuel olarak oluşturuyoruz.
     }
 
-    public void OnGet()
+    public async Task OnGetAsync()
     {
+        Webtoons = await _webtoonVeri.GetWebtoonsAsync();
     }
 }
 
+}

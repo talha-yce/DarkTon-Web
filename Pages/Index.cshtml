@@ -5,19 +5,14 @@
 }
 <!DOCTYPE html>
 <html lang="zxx">
-
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Anime Template">
     <meta name="keywords" content="Anime, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
- 
-
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
@@ -27,56 +22,32 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
-
 <body>
     <div id="preloder">
         <div class="loader"></div>
     </div>
 
-<!--hero listesi-->
     <section class="hero">
         <div class="container">
             <div class="hero__slider owl-carousel">
-                <div class="hero__items set-bg" data-setbg="img/hero/1.jpg">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="hero__text">
-                                <div class="label">macera</div>
-                                <h2>Fate / Stay Night: Unlimited Blade Works</h2>
-                                <a href="webtoon-details"><span>Oku</span> <i class="fa fa-angle-right"></i></a>
+                @foreach (var webtoon in Model.TrendingWebtoons)
+                {
+                    <div class="hero__items set-bg" data-setbg="@webtoon.CoverImage">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="hero__text">
+                                    <div class="label">@string.Join(", ", webtoon.Genre)</div>
+                                    <h2>@webtoon.Title</h2>
+                                    <a href="webtoon-details?id=@webtoon.Id"><span>Oku</span> <i class="fa fa-angle-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="hero__items set-bg" data-setbg="img/hero/2.jpg">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="hero__text">
-                                <div class="label">Komedi</div>
-                                <h2>Fate / Stay Night: Unlimited Blade Works</h2>
-                                
-                                <a href="webtoon-details"><span>Oku</span> <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero__items set-bg" data-setbg="img/hero/3.jpg">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="hero__text">
-                                <div class="label">Dram</div>
-                                <h2>Fate / Stay Night: Unlimited Blade Works</h2>
-                                
-                                <a href="webtoon-details"><span>Oku</span> <i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </section>
 
-    <!--Listeler listesi-->
     <section class="product spad">
         <div class="container">
             <div class="row">
@@ -90,54 +61,29 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="img/anime/1.jpg">
-                                        
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Romantik</li>
-                                            <li>Komedi</li>
-                                        </ul>
-                                        <h5><a href="webtoon-details">The Seven Deadly Sins: Wrath of the Gods</a></h5>
+                            @foreach (var webtoon in Model.TrendingWebtoons)
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="@webtoon.CoverImage">
+                                            <div class="comment"><i class="fa fa-comments"></i> @webtoon.Comments.Count</div>
+                                            <div class="view"><i class="fa fa-eye"></i> @webtoon.Likes</div>
+                                        </div>
+                                        <div class="product__item__text">
+                                            <ul>
+                                                @foreach (var genre in webtoon.Genre)
+                                                {
+                                                    <li>@genre</li>
+                                                }
+                                            </ul>
+                                            <h5><a href="webtoon-details?id=@webtoon.Id">@webtoon.Title</a></h5>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
+                            }
                         </div>
                     </div>
-                    <div class="popular__product">
-                        <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                <div class="section-title">
-                                    <h4>Sana Özel</h4>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="img/anime/3.jpg">
-                                        
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Romantik</li>
-                                            <li>Komedi</li>
-                                        </ul>
-                                        <h5><a href="webtoon-details">The Seven Deadly Sins: Wrath of the Gods</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
+                    
                     <div class="recent__product">
                         <div class="row">
                             <div class="col-lg-8 col-md-8 col-sm-8">
@@ -145,57 +91,83 @@
                                     <h4>Yeni</h4>
                                 </div>
                             </div>
-                           
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="img/anime/2.jpeg">
-                                        
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Romantik</li>
-                                            <li>Komedi</li>
-                                        </ul>
-                                        <h5><a href="webtoon-details">The Seven Deadly Sins: Wrath of the Gods</a></h5>
+                            @foreach (var webtoon in Model.NewWebtoons)
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="@webtoon.CoverImage">
+                                            <div class="comment"><i class="fa fa-comments"></i> @webtoon.Comments.Count</div>
+                                            <div class="view"><i class="fa fa-eye"></i> @webtoon.Likes</div>
+                                        </div>
+                                        <div class="product__item__text">
+                                            <ul>
+                                                @foreach (var genre in webtoon.Genre)
+                                                {
+                                                    <li>@genre</li>
+                                                }
+                                            </ul>
+                                            <h5><a href="webtoon-details?id=@webtoon.Id">@webtoon.Title</a></h5>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
+                            }
                         </div>
                     </div>
-                   
+
+                    <div class="popular__product">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-8">
+                                <div class="section-title">
+                                    <h4>Sana Özel</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            @foreach (var webtoon in Model.RecommendedWebtoons)
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="@webtoon.CoverImage">
+                                            <div class="comment"><i class="fa fa-comments"></i> @webtoon.Comments.Count</div>
+                                            <div class="view"><i class="fa fa-eye"></i> @webtoon.Likes</div>
+                                        </div>
+                                        <div class="product__item__text">
+                                            <ul>
+                                                @foreach (var genre in webtoon.Genre)
+                                                {
+                                                    <li>@genre</li>
+                                                }
+                                            </ul>
+                                            <h5><a href="webtoon-details?id=@webtoon.Id">@webtoon.Title</a></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div>
-     
-</div>
-</div>
-</div>
-</div>
-</section>
+            </div>
+        </div>
+    </section>
 
-
-
-  <div class="search-model">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <div class="search-close-switch"><i class="icon_close"></i></div>
-        <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here.....">
-        </form>
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch"><i class="icon_close"></i></div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
     </div>
-</div>
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/player.js"></script>
-<script src="js/jquery.nice-select.min.js"></script>
-<script src="js/mixitup.min.js"></script>
-<script src="js/jquery.slicknav.js"></script>
-<script src="js/owl.carousel.min.js"></script> 
-<script src="js/main.js"></script>
 
-
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
-
 </html>

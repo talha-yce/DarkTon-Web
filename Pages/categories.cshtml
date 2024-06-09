@@ -1,5 +1,5 @@
 @page
-@model Categories
+@model CategoriesModel
 @{
     ViewData["Title"] = "Keşfet";
 }
@@ -33,72 +33,47 @@
         <div class="loader"></div>
     </div>
 
-    <section class="product-page spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="product__page__content">
-                        <div class="product__page__title">
-                            <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-6">
-                                    <div class="section-title">
-                                        <h4>Webtoonlar</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--webtoon listesi-->
+   <section class="product-page spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="product__page__content">
+                    <div class="product__page__title">
                         <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="img/anime/3.jpg">
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Romantik</li>
-                                            <li>Komedi</li>
-                                        </ul>
-                                        <h5><a href="webtoon-details">Sen to Chihiro no Kamikakushi</a></h5>
-                                    </div>
+                            <div class="col-lg-8 col-md-8 col-sm-6">
+                                <div class="section-title">
+                                    <h4>Webtoonlar</h4>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg" data-setbg="img/anime/1.jpg">
-                                        
-                                        <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <ul>
-                                            <li>Romantik</li>
-                                            <li>Aksiyon</li>
-                                        </ul>
-                                        <h5><a href="webtoon-details">Kizumonogatari III: Reiket su-hen</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                           
                         </div>
                     </div>
-                    <!--sayfa listesi-->
-                    <div class="product__pagination">
-                        <a href="categories" class="current-page">1</a>
-                        <a href="categories">2</a>
-                        <a href="categories">3</a>
-                        <a href="categories">4</a>
-                        <a href="categories">5</a>
-                        <a href="categories"><i class="fa fa-angle-double-right"></i></a>
+                    <!--webtoon listesi-->
+                    <div class="row">
+                        @foreach(var webtoon in Model.Webtoons)
+                        {
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="@webtoon.CoverImage">
+                                        <div class="comment"><i class="fa fa-comments"></i> @webtoon.Comments.Count</div>
+                                        <div class="view"><i class="fa fa-eye"></i> @webtoon.Likes</div>
+                                    </div>
+                                    <div class="product__item__text">
+                                        <ul>
+                                            @foreach(var genre in webtoon.Genre)
+                                            {
+                                                <li>@genre</li>
+                                            }
+                                        </ul>
+                                        <h5><a href="webtoon-details?id=@webtoon.Id">@webtoon.Title</a></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
-               
+            </div>
+        </div>
     </div>
-</div>
-</div>
-</div>
-</div>
 </section>
 
 
