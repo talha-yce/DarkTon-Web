@@ -87,5 +87,12 @@ public class WebtoonVeri
     var user = await _userCollection.Find(u => u.Email == email).FirstOrDefaultAsync();
     return user?.Id;
 }
+public async Task AddCommentIdToWebtoon(ObjectId webtoonId, ObjectId commentId)
+{
+    var filter = Builders<Webtoon>.Filter.Eq(w => w.Id, webtoonId);
+    var update = Builders<Webtoon>.Update.Push(w => w.Comments, commentId);
+    await _webtoonCollection.UpdateOneAsync(filter, update);
+}
+
 
 }

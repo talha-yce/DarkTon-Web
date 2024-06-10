@@ -87,7 +87,7 @@ namespace DarkTon_Web.Pages
             // İlgili bölümün comments listesine yorumun id'sini ekleyin
             await _webtoonVeri.AddCommentIdToEpisode(episodeId, commentId);
 
-            return Redirect("/webtoon-details?id="+ SelectedEpisode);
+            return Redirect("/index");
         }
     }
 

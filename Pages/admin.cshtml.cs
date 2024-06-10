@@ -45,5 +45,55 @@ namespace DarkTon_Web.Pages
             TotalEpisodes = Episodes.Count;
             TotalComments = Comments.Count;
         }
+
+        public IActionResult OnPostBanUser(string email)
+        {
+            if (email != "admin@admin.com")
+            {
+                _usersCollection.DeleteOne(new BsonDocument("email", email));
+            }
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostAddWebtoon(string Title, string Genres, string Description, string CoverImageUrl)
+        {
+            var webtoon = new BsonDocument
+            {
+                { "title", Title },
+                { "genres", Genres },
+                { "description", Description },
+                { "coverImageUrl", CoverImageUrl },
+                { "comments", new BsonArray() }
+            };
+            _webtoonsCollection.InsertOne(webtoon);
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostDeleteComment(string id)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+            _commentsCollection.DeleteOne(filter);
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostAddEpisode(string Title, string Number, string Content)
+        {
+            var episode = new BsonDocument
+            {
+                { "title", Title },
+                { "number", Number },
+                { "content", Content },
+                { "comments", new BsonArray() }
+            };
+            _episodesCollection.InsertOne(episode);
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostDeleteEpisode(string id)
+        {
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", new ObjectId(id));
+            _episodesCollection.DeleteOne(filter);
+            return RedirectToPage();
+        }
     }
 }

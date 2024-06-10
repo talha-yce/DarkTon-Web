@@ -23,22 +23,16 @@
     <link rel="stylesheet" href="~/css/style.css" type="text/css">
     <style>
         body {
-          
             font-family: 'Arial', sans-serif;
         }
 
         .admin-panel {
             padding: 30px 0;
-            
-        }
-        h2{
-            color: purple;
         }
 
         .section-title {
             text-align: center;
             margin-bottom: 30px;
-            
         }
 
         .admin-functions .admin-function {
@@ -104,7 +98,6 @@
 
         th {
             background-color: #fff;
-            
         }
 
         td {
@@ -145,11 +138,7 @@
 </head>
 
 <body>
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
-
-    <!-- Admin paneli -->
+    <!-- Admin Paneli -->
     <section class="admin-panel spad">
         <div class="container">
             <div class="row">
@@ -158,136 +147,117 @@
                         <h2>Admin Paneli</h2>
                     </div>
                     <div class="admin-functions">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="admin-function" onclick="toggleSection('users')">
-                                    <h4>Kayıtlı Kullanıcılar</h4>
-                                </div>
-                                <div class="admin-section" id="users">
-                                    @foreach (var user in Model.Users)
+                        <!-- Kullanıcılar -->
+                        <div class="admin-function" onclick="toggleSection('users')">
+                            <h4>Kayıtlı Kullanıcılar</h4>
+                        </div>
+                        <div class="admin-section" id="users">
+                            @foreach (var user in Model.Users)
+                            {
+                                <div class="user">
+                                    <p>Kullanıcı Adı: @user["username"]</p>
+                                    <p>E-posta: @user["email"]</p>
+                                    @if (@user["email"] != "admin@admin.com")
                                     {
-                                        <div class="user">
-                                            <p>Kullanıcı Adı: @user["username"]</p>
-                                            <p>E-posta: @user["email"]</p>
-                                            <button onclick="banUser('@user["username"]')">Kullanıcıyı Banla</button>
-                                        </div>
+                                        <button onclick="banUser('@user["email"]')">Kullanıcıyı Banla</button>
                                     }
                                 </div>
+                            }
+                        </div>
+                        <!-- Webtoonlar -->
+                        <div class="admin-function" onclick="toggleSection('webtoons')">
+                            <h4>Webtoonlar</h4>
+                        </div>
+                        <div class="admin-section" id="webtoons">
+                            <!-- Webtoon detay ve bölüm -->
+                            <!-- Webtoon Ekle -->
+                            <div class="admin-function" onclick="toggleSection('webtoon-add')">
+                                <h5>Webtoon Ekle</h5>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="admin-function" onclick="toggleSection('webtoons')">
-                                    <h4>Webtoonlar</h4>
-                                </div>
-                                <div class="admin-section" id="webtoons">
-                                    <!-- Webtoon detay ve bölüm -->
-                                    <div class="admin-function" onclick="toggleSection('webtoon-details')">
-                                        <h5>Webtoon Detay</h5>
-                                    </div>
-                                    <div class="admin-section" id="webtoon-details">
-                                        <form>
-                                            <label for="webtoon-title">Webtoon Adı:</label>
-                                            <input type="text" id="webtoon-title" name="webtoon-title">
-                                            <label for="webtoon-genres">Türleri:</label>
-                                            <input type="text" id="webtoon-genres" name="webtoon-genres">
-                                            <label for="webtoon-description">Konu:</label>
-                                            <textarea id="webtoon-description" name="webtoon-description"></textarea>
-                                            <label for="webtoon-cover">Kapak Resmi URL:</label>
-                                            <input type="text" id="webtoon-cover" name="webtoon-cover">
-                                            <input type="submit" value="Webtoon Ekle">
-                                        </form>
-                                        <div class="admin-function" onclick="toggleSection('comment-review')">
-                                            <h5>Yorumları İncele</h5>
-                                        </div>
-                                        <div class="admin-section" id="comment-review">
-                                            <input type="text" id="search-comments" placeholder="Webtoon Adı ile Ara">
-                                            @foreach (var webtoon in Model.Webtoons)
-                                            {
-                                                <div class="comment">
-                                                    <p>webtoon adı: @webtoon["title"]</p>
-                                                    <p>Yorum: @webtoon["comments"]</p>
-                                                    <button onclick="deleteComment('@webtoon["title"]')">Yorumu Sil</button>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div class="admin-function" onclick="toggleSection('webtoon-episodes')">
-                                        <h5>Webtoon Bölümleri</h5>
-                                    </div>
-                                    <div class="admin-section" id="webtoon-episodes">
-                                        <!-- Bölüm ekle -->
-                                        <div class="admin-function" onclick="toggleSection('episode-add')">
-                                            <h5>Bölüm Ekle</h5>
-                                        </div>
-                                        <div class="admin-section" id="episode-add">
-                                            <form>
-                                                <label for="episode-title">Bölüm Başlığı:</label>
-                                                <input type="text" id="episode-title" name="episode-title">
-                                                <label for="episode-number">Bölüm Numarası:</label>
-                                                <input type="text" id="episode-number" name="episode-number">
-                                                <label for="episode-content">Bölüm İçeriği:</label>
-                                                <textarea id="episode-content" name="episode-content"></textarea>
-                                                <input type="submit" value="Bölüm Ekle">
-                                            </form>
-                                        </div>
-                                        <!-- Bölüm İncele -->
-                                        <div class="admin-function" onclick="toggleSection('episode-review')">
-                                            <h5>Bölümleri İncele</h5>
-                                        </div>
-                                        <div class="admin-section" id="episode-review">
-                                            @foreach (var episode in Model.Episodes)
-                                            {
-                                                <div class="episode">
-                                                    <p>Bölüm Başlığı: @episode["title"]</p>
-                                                    <button onclick="deleteEpisode('@episode["title"]')">Bölümü Sil</button>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="admin-section" id="webtoon-add">
+                                <form>
+                                    <label for="webtoon-title">Webtoon Adı:</label>
+                                    <input type="text" id="webtoon-title" name="webtoon-title">
+                                    <label for="webtoon-genres">Türleri:</label>
+                                    <input type="text" id="webtoon-genres" name="webtoon-genres">
+                                    <label for="webtoon-description">Konu:</label>
+                                    <textarea id="webtoon-description" name="webtoon-description"></textarea>
+                                    <label for="webtoon-cover">Kapak Resmi URL:</label>
+                                    <input type="text" id="webtoon-cover" name="webtoon-cover">
+                                    <input type="submit" value="Webtoon Ekle">
+                                </form>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="admin-function" onclick="toggleSection('website')">
-                                    <h4>Web Sitesi Raporu</h4>
-                                </div>
-                                <div class="admin-section" id="website">
-                                    <table>
-                                        <tr>
-                                            <th>Toplam Kullanıcı Sayısı</th>
-                                            <td>@Model.TotalUsers</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Toplam Webtoon Sayısı</th>
-                                            <td>@Model.TotalWebtoons</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Toplam Bölüm Sayısı</th>
-                                            <td>@Model.TotalEpisodes</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Toplam Yorum Sayısı</th>
-                                            <td>@Model.TotalComments</td>
-                                        </tr>
-                                    </table>
-                                </div>
+                            <!-- Yorumları İncele -->
+                            <div class="admin-function" onclick="toggleSection('comment-review')">
+                                <h5>Yorumları İncele</h5>
                             </div>
+                            <div class="admin-section" id="comment-review">
+                                @foreach (var comment in Model.Comments)
+                                {
+                                    <div class="comment">
+                                        <p>Yorum: @comment["content"]</p>
+                                        <button onclick="deleteComment('@comment["_id"]')">Yorumu Sil</button>
+                                    </div>
+                                }
+                            </div>
+                            <!-- Bölüm Ekle -->
+                            <div class="admin-function" onclick="toggleSection('episode-add')">
+                                <h5>Bölüm Ekle</h5>
+                            </div>
+                            <div class="admin-section" id="episode-add">
+                                <form>
+                                    <label for="episode-title">Bölüm Başlığı:</label>
+                                    <input type="text" id="episode-title" name="episode-title">
+                                    <label for="episode-number">Bölüm Numarası:</label>
+                                    <input type="text" id="episode-number" name="episode-number">
+                                    <label for="episode-content">Bölüm İçeriği:</label>
+                                    <textarea id="episode-content" name="episode-content"></textarea>
+                                    <input type="submit" value="Bölüm Ekle">
+                                </form>
+                            </div>
+                            <!-- Bölümleri İncele -->
+                            <div class="admin-function" onclick="toggleSection('episode-review')">
+                                <h5>Bölümleri İncele</h5>
+                            </div>
+                            <div class="admin-section" id="episode-review">
+                                @foreach (var episode in Model.Episodes)
+                                {
+                                    <div class="episode">
+                                        <p>Bölüm Başlığı: @episode["title"]</p>
+                                        <button onclick="deleteEpisode('@episode["_id"]')">Bölümü Sil</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <!-- Web Sitesi Raporu -->
+                        <div class="admin-function" onclick="toggleSection('website')">
+                            <h4>Web Sitesi Raporu</h4>
+                        </div>
+                        <div class="admin-section" id="website">
+                            <table>
+                                <tr>
+                                    <th>Toplam Kullanıcı Sayısı</th>
+                                    <td>@Model.TotalUsers</td>
+                                </tr>
+                                <tr>
+                                    <th>Toplam Webtoon Sayısı</th>
+                                    <td>@Model.TotalWebtoons</td>
+                                </tr>
+                                <tr>
+                                    <th>Toplam Bölüm Sayısı</th>
+                                    <td>@Model.TotalEpisodes</td>
+                                </tr>
+                                <tr>
+                                    <th>Toplam Yorum Sayısı</th>
+                                    <td>@Model.TotalComments</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-   
-
-    <!-- Arama modeli -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Ara...">
-            </form>
-        </div>
-    </div>
 
     <!-- JavaScript dosyaları -->
     <script src="~/js/jquery-3.3.1.min.js"></script>
@@ -308,16 +278,26 @@
             }
         }
 
-        function banUser(username) {
-            // Kullanıcıyı banlama işlemleri
+        function banUser(email) {
+            if (email === "admin@admin.com") {
+                alert("Bu kullanıcıyı banlayamazsınız!");
+                return;
+            }
+            $.post("/admin/banuser", { email: email }, function (response) {
+                location.reload();
+            });
         }
 
-        function deleteComment(username) {
-            // Yorumu silme işlemleri
+        function deleteComment(commentId) {
+            $.post("/admin/deletecomment", { id: commentId }, function (response) {
+                location.reload();
+            });
         }
 
-        function deleteEpisode(title) {
-            // Bölümü silme işlemleri
+        function deleteEpisode(episodeId) {
+            $.post("/admin/deleteepisode", { id: episodeId }, function (response) {
+                location.reload();
+            });
         }
     </script>
 </body>

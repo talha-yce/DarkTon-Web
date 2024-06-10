@@ -25,14 +25,8 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-    <style>
+     <style>
         /* Özel CSS Buraya */
-        .profile__pic img {
-            width: 100%;
-            border-radius: 50%;
-            max-width: 200px;
-        }
-
         .profile__details {
             padding-left: 20px;
         }
@@ -42,24 +36,85 @@
             font-size: 28px;
             color: #333;
             margin-bottom: 10px;
+            border-bottom: 2px solid #333; 
+            padding-bottom: 5px; 
         }
 
         .profile__details p {
             font-family: 'Mulish', sans-serif;
             font-size: 16px;
             color: #666;
-            margin-bottom: 10px;
-        }
-
-        .saved-webtoons .section-title h4 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 24px;
-            color: #333;
             margin-bottom: 20px;
         }
 
+        .profile__details strong {
+            color: purple;
+        }
+
+        .profile__pic {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .profile__pic img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile__overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile__overlay i {
+            color: #fff;
+            font-size: 32px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile__pic:hover .profile__overlay {
+            opacity: 1; 
+        }
+
+        .profile__pic:hover .profile__overlay i {
+            transform: scale(1.2); 
+        }
+
+        .saved-webtoons {
+            padding: 60px 0;
+        }
+
+        .section-title h4 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
         .product__item {
-            margin-bottom: 30px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .product__item:hover {
+            transform: translateY(-10px);
         }
 
         .product__item__pic {
@@ -78,25 +133,25 @@
         }
 
         .product__item__text ul {
-            list-style-type: none;
-            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
             padding: 0;
-            margin-bottom: 10px;
+            margin: 10px 0;
         }
 
         .product__item__text ul li {
-            display: inline-block;
             margin-right: 10px;
             font-size: 14px;
             color: #666;
+            background-color: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 20px;
         }
 
         .product__item__text h5 {
-            font-family: 'Oswald', sans-serif;
             font-size: 20px;
             color: #333;
-            margin-top: 10px;
-            margin-bottom: 0;
+            margin: 10px 0 0;
         }
 
         .product__item__text h5 a {
@@ -106,16 +161,15 @@
         }
 
         .product__item__text h5 a:hover {
-            color: #ff0000;
+            color: purple;
         }
 
         .comment,
         .view {
             position: absolute;
-            weight:20px;
-            height: 20px;
             top: 10px;
             right: 10px;
+            height: 20px; /* Yükseklik 20px */
             background: rgba(255, 255, 255, 0.8);
             padding: 5px 10px;
             border-radius: 5px;
@@ -124,11 +178,8 @@
         }
     </style>
 </head>
-<body>
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
 
+<body>
     <!-- Profil Bölümü -->
     <section class="profile spad">
         <div class="container">
@@ -160,20 +211,22 @@
                 </div>
             </div>
             <div class="row">
-                @foreach (var webtoonId in Model.SavedWebtoons)
+                @foreach (var webtoon in Model.SavedWebtoonsDetails)
                 {
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" style="background-image: url('img/anime/@(webtoonId).jpg');">
-                                <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                            <div class="product__item__pic set-bg" style="background-color: #f5f5f5; width: 300px; height: 450px;" data-setbg="@webtoon.CoverImage">
+                                <div class="comment"><i class="fa fa-comments"></i> @webtoon.Likes</div>
+                                <div class="view"><i class="fa fa-eye"></i> @webtoon.Saves</div>
                             </div>
                             <div class="product__item__text">
                                 <ul>
-                                    <li>Romantik</li>
-                                    <li>Komedi</li>
+                                    @foreach (var genre in webtoon.Genres)
+                                    {
+                                        <li>@genre</li>
+                                    }
                                 </ul>
-                                <h5><a href="webtoon-details">@webtoonId</a></h5>
+                                <h5><a href="webtoon-details">@webtoon.Title</a></h5>
                             </div>
                         </div>
                     </div>
@@ -181,6 +234,8 @@
             </div>
         </div>
     </section>
+
+
 
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -192,4 +247,3 @@
     <script src="js/main.js"></script>
 </body>
 </html>
-
