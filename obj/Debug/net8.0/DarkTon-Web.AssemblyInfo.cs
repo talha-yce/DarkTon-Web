@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DarkTon-Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8112118f67b42cc243b7a8b4d443bc3c9614197f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef9fb01691200990bf8cd131d8997434f6fa339a")]
 [assembly: System.Reflection.AssemblyProductAttribute("DarkTon-Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DarkTon-Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
