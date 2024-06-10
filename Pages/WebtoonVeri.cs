@@ -1,5 +1,4 @@
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -42,8 +41,51 @@ public class WebtoonVeri
     {
         return await _userCollection.Find(u => u.Id == userId).FirstOrDefaultAsync();
     }
-     public async Task<List<Webtoon>> GetWebtoonsAsync()
+
+    public async Task<List<Webtoon>> GetWebtoonsAsync()
     {
         return await _webtoonCollection.Find(new BsonDocument()).ToListAsync();
     }
+
+    public IMongoCollection<Episode> GetEpisodeCollection()
+    {
+        return _episodeCollection;
+    }
+
+    public IMongoCollection<Comment> GetCommentCollection()
+    {
+        return _commentCollection;
+    }
+
+    public async Task AddCommentToEpisode(ObjectId episodeId, Comment newComment)
+    {
+        var filter = Builders<Episode>.Filter.Eq(e => e.Id, episodeId);
+        var update = Builders<Episode>.Update.Push(e => e.Comments, newComment.Id);
+        await _episodeCollection.UpdateOneAsync(filter, update);
+    }
+
+    public async Task<Episode> GetEpisodeById(ObjectId episodeId)
+    {
+        return await _episodeCollection.Find(e => e.Id == episodeId).FirstOrDefaultAsync();
+    }
+
+    public async Task<ObjectId> AddComment(Comment newComment)
+    {
+        await _commentCollection.InsertOneAsync(newComment);
+        return newComment.Id;
+    }
+
+    public async Task AddCommentIdToEpisode(ObjectId episodeId, ObjectId commentId)
+    {
+        var filter = Builders<Episode>.Filter.Eq(e => e.Id, episodeId);
+        var update = Builders<Episode>.Update.Push(e => e.Comments, commentId);
+        await _episodeCollection.UpdateOneAsync(filter, update);
+    }
+
+    public async Task<ObjectId?> GetUserIdByEmail(string email)
+{
+    var user = await _userCollection.Find(u => u.Email == email).FirstOrDefaultAsync();
+    return user?.Id;
+}
+
 }

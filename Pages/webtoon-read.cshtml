@@ -1,116 +1,188 @@
 @page
-@model webtoonread
+@model webtoonreadModel
 @{
-    ViewData["Title"] = "Webtoon Oku";
+    ViewData["Title"] = "Webtoon Read";
 }
 
-    <!DOCTYPE html>
-    <html lang="zxx">
+<!DOCTYPE html>
+<html lang="zxx">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="description" content="Anime Template">
-        <meta name="keywords" content="Anime, unica, creative, html">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Anime Template">
+    <meta name="keywords" content="Anime, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
 
+    <style>
+        .login-reminder {
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
 
-        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        .login-reminder h3 {
+            margin-bottom: 10px;
+            color: white;
+            font-size: 1.2em;
+        }
 
+        .login-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: purple;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
 
-        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-        <link rel="stylesheet" href="css/plyr.css" type="text/css">
-        <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
+        .login-button:hover {
+            background-color: #0056b3;
+        }
 
-        <style>
-            .login-reminder {
+        .episode-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-    border: 1px solid #ced4da; /* Kenarlık */
-    border-radius: 5px; /* Kenar yuvarlama */
-    padding: 20px; /* İç içe boşluk */
-    text-align: center; /* Metni ortala */
-}
+        .episode-image {
+            width: 100%;
+            max-width: 720px;
+            height: auto;
+            aspect-ratio: 9 / 16;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
 
-.login-reminder h3 {
-    margin-bottom: 10px; /* Başlık ile bağlantı arasındaki boşluk */
-    color: white; /* Başlık rengi */
-    font-size: 1.2em; /* Başlık font boyutu */
-}
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
 
-.login-button {
-    display: inline-block; /* Bağlantıları yatayda sırala */
-    padding: 10px 20px; /* Bağlantı içeriği ile kenar arasındaki boşluk */
-    background-color: purple; /* Bağlantı arka plan rengi */
-    color: #fff; /* Bağlantı metni rengi */
-    text-decoration: none; /* Bağlantı alt çizgi kaldır */
-    border-radius: 3px; /* Bağlantı kenarlarını yuvarla */
-    transition: background-color 0.3s; /* Arka plan rengi geçiş efekti */
-}
+        .navigation-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-.login-button:hover {
-    background-color: #0056b3; /* Üzerine gelindiğinde arka plan rengi */
-}
+        .navigation-buttons button:hover {
+            background-color: #0056b3;
+        }
 
-        </style>
-    </head>
+        .dropdown-menu {
+            display: inline-block;
+            position: relative;
+        }
 
-    <body>
-        
- @if (HttpContext.Session.GetString("IsLoggedIn") != "true")
-                                {
-   <div class="login-reminder">
-    <h3>Webtoon okuyabilmek için lütfen giriş yapın.</h3>
-    <a href="login" class="login-button">Giriş yapmak için tıklayınız</a>
-</div>
+        .dropdown-menu button {
+            padding: 10px 20px;
+            background-color: purple;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-}
-else
-{
+        .dropdown-menu ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            z-index: 1000;
+        }
 
+        .dropdown-menu ul li {
+            padding: 10px 20px;
+        }
+
+        .dropdown-menu ul li a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown-menu ul li:hover {
+            background-color: #eee;
+        }
+
+        .dropdown-menu:hover ul {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    @if (HttpContext.Session.GetString("IsLoggedIn") != "true")
+    {
+        <div class="login-reminder">
+            <h3>Webtoon okuyabilmek için lütfen giriş yapın.</h3>
+            <a href="login" class="login-button">Giriş yapmak için tıklayınız</a>
+        </div>
+    }
+    else
+    {
         <div id="preloder">
             <div class="loader"></div>
         </div>
-
 
         <section class="webtoon-details spad">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-
                         <div class="webtoon__header" style="color: white;">
-                            <h2 style="color: white;">Webtoon Adı</h2>
-                            <h4 style="color: white;">Bölüm 01</h4>
+                            <h2 style="color: white;">@Model.WebtoonDetails.Title</h2>
+                            <h4 style="color: white;">@Model.SelectedEpisode.Title</h4>
                         </div>
 
-                        <div class="webtoon__images">
-                            <img src="images/01.jpg" alt="Webtoon Image 1" />
-                            <img src="images/02.jpg" alt="Webtoon Image 2" />
-                            <img src="images/03.jpg" alt="Webtoon Image 3" />
-                            <img src="images/04.jpg" alt="Webtoon Image 4" />
+                        <div class="episode-images">
+                            @foreach (var imageUrl in Model.SelectedEpisode.Images)
+                            {
+                                <img src="@imageUrl" alt="Episode Image" class="episode-image" />
+                            }
                         </div>
 
-                        <div class="webtoon__navigation">
+                        <div class="navigation-buttons">
                             <button class="prev">Önceki</button>
                             <button class="next">Sonraki</button>
                         </div>
 
-                        <div class="webtoon__episode__list">
-                            <button class="episode__list__button">Bölüm Seç</button>
-                            <div class="episode__dropdown">
-                                <a href="webtoon-read?episode=1">Ep 01</a>
-                                <a href="webtoon-read?episode=2">Ep 02</a>
-                                <a href="webtoon-read?episode=3">Ep 03</a>
-                                <a href="webtoon-read?episode=4">Ep 04</a>
-                                <a href="webtoon-read?episode=5">Ep 05</a>
-                                <a href="webtoon-read?episode=6">Ep 06</a>
-                                <a href="webtoon-read?episode=7">Ep 07</a>
-                            </div>
+                        <div class="dropdown-menu">
+                            <button>Bölüm Seç</button>
+                            <ul>
+                                @if (Model.Episodes != null)
+                                {
+                                    @foreach (var episode in Model.Episodes)
+                                    {
+                                        <li><a href="webtoon-read?episodeId=@episode.Id">Bölüm @episode.Title</a></li>
+                                    }
+                                    }
+                                else
+                                    {}
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -123,33 +195,29 @@ else
                     <div class="section-title">
                         <h5>Reviews</h5>
                     </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-1.jpg" alt="">
+                    @foreach (var comment in Model.EpisodeComments)
+                    {
+                        var user = Model.CommentUsers.FirstOrDefault(u => u.Id == comment.UserId);
+                        <div class="anime__review__item">
+                            <div class="anime__review__item__pic">
+                                <img src="@user?.ProfileImage" alt="Profile Image">
+                            </div>
+                            <div class="anime__review__item__text">
+                                <h6>@user?.Username - <span>@comment.Timestamp.ToString("yyyy/MM/dd HH:mm")</span></h6>
+                                <p>@comment.Content</p>
+                            </div>
                         </div>
-                        <div class="anime__review__item__text">
-                            <h6>Chris Curry - <span>2024/05/07 18.00</span></h6>
-                            <p>Okuduğum En iyi webtoonlardan.</p>
-                        </div>
-                    </div>
-                    <div class="anime__review__item">
-                        <div class="anime__review__item__pic">
-                            <img src="img/anime/review-2.jpg" alt="">
-                        </div>
-                        <div class="anime__review__item__text">
-                            <h6>Lewis Mann - <span>2024/05/10 20.00</span></h6>
-                            <p>Hemen final yapmaz inşallah</p>
-                        </div>
-                    </div>
-                    <div class="anime__details__form">
-                        <div class="section-title">
-                            <h5>Yorum Ekle</h5>
-                        </div>
-                        <form action="#">
-                            <textarea placeholder="Yorum Yaz"></textarea>
-                            <button type="submit"><i class="fa fa-location-arrow"></i> Gönder</button>
-                        </form>
-                    </div>
+                    }
+                </div>
+                <div class="anime__details__form">
+                    <div class="section-title">
+                        <h5>Yorum Ekle</h5>
+                    </div> 
+                    <form method="post" id="commentForm">
+                        <textarea name="content" placeholder="Yorum Yaz"></textarea>
+                        <button type="submit"><i class="fa fa-location-arrow"></i> Gönder</button>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -161,19 +229,30 @@ else
                     <input type="text" id="search-input" placeholder="Search here.....">
                 </form>
             </div>
-        </div>}
+        </div>
+    }
 
-        <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/player.js"></script>
-        <script src="js/jquery.nice-select.min.js"></script>
-       <script src="js/mixitup.min.js"></script>
-<script src="js/jquery.slicknav.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/main.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+     <script>
+        var notification = document.getElementById('notification');
 
+        function removeNotification() {
+            if (notification && !notification.classList.contains('hidden')) {
+                notification.classList.add('hidden');
+            }
+        }
+
+        window.onload = function() {
+            setTimeout(removeNotification, 5000);
+        };
+    </script>
 </body>
 
 </html>
-
-
