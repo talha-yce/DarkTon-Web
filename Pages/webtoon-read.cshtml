@@ -90,7 +90,7 @@
 
         .dropdown-menu {
             display: inline-block;
-            position: relative;
+           
         }
 
         .dropdown-menu button {
@@ -213,9 +213,9 @@
                     <div class="section-title">
                         <h5>Yorum Ekle</h5>
                     </div> 
-                    <form method="post" id="commentForm">
+                    <form method="post" id="commentForm" href="webtoon-read?id=@Model.SelectedEpisode.Id">
                         <textarea name="content" placeholder="Yorum Yaz"></textarea>
-                        <button type="submit"><i class="fa fa-location-arrow"></i> Gönder</button>
+                        <button type="submit"><i class="fa fa-location-arrow"></i>  Gönder</button>
                     </form>
 
                 </div>
